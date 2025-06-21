@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
@@ -26,30 +27,48 @@ public class LocationService extends Service {
     
     private static final String TAG = "DriverMax";
     private static final int NOTIFICATION_ID = 1001;
-    private static final String CHANNEL_ID = "DriverMaxChannel";
+    private static final String CHANNEL_ID = "DriverMaxLocationChannel";
+    private static final String PREFS_NAME = "DriverMaxPrefs";
+    private static final String IN_TRIP_KEY = "in_trip";
     
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     private ApiClient apiClient;
+    private SharedPreferences prefs;
     
     @Override
     public void onCreate() {
         super.onCreate();
         
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         apiClient = new ApiClient(this);
         
         createNotificationChannel();
         setupLocationCallback();
         
-        Log.d(TAG, "DriverMax Service creado");
+        Log.d(TAG, "DriverMax LocationService creado");
     }
     
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startForeground(NOTIFICATION_ID, createNotification("DriverMax activo"));
-        startLocationUpdates();
+        Log.d(TAG, "DriverMax LocationService iniciado");
+        
+        // Solo iniciar si está en viaje
+        if (isInTrip()) {
+            startForeground(NOTIFICATION_ID, createNotification("🚗 En viaje - Registrando ruta"));
+            startLocationUpdates();
+        } else {
+            Log.d(TAG, "No está en viaje - LocationService no enviará ubicación");
+            startForeground(NOTIFICATION_ID, createNotification("⏸️ Fuera de servicio"));
+            stopSelf();
+        }
+        
         return START_STICKY;
+    }
+    
+    private boolean isInTrip() {
+        return prefs.getBoolean(IN_TRIP_KEY, false);
     }
     
     private void setupLocationCallback() {
@@ -60,7 +79,15 @@ public class LocationService extends Service {
                 
                 Location location = locationResult.getLastLocation();
                 if (location != null) {
-                    sendLocationToBackend(location);
+                    // Solo enviar si está en viaje
+                    if (isInTrip()) {
+                        sendLocationToBackend(location);
+                        updateNotification("🚗 Viaje activo - Ubicación enviada");
+                    } else {
+                        Log.d(TAG, "Viaje terminado - Deteniendo envío de ubicación");
+                        stopLocationUpdates();
+                        stopSelf();
+                    }
                 }
             }
         };
@@ -69,8 +96,8 @@ public class LocationService extends Service {
     private void startLocationUpdates() {
         try {
             LocationRequest locationRequest = new LocationRequest.Builder(
-                Priority.PRIORITY_HIGH_ACCURACY, 30000)
-                .setMinUpdateIntervalMillis(15000)
+                Priority.PRIORITY_HIGH_ACCURACY, 30000) // Cada 30 segundos
+                .setMinUpdateIntervalMillis(15000) // Mínimo 15 segundos
                 .build();
             
             fusedLocationClient.requestLocationUpdates(
@@ -79,10 +106,17 @@ public class LocationService extends Service {
                 Looper.getMainLooper()
             );
             
-            Log.d(TAG, "Ubicaciones iniciadas");
+            Log.d(TAG, "Actualizaciones de ubicación iniciadas para viaje activo");
             
         } catch (SecurityException e) {
-            Log.e(TAG, "Sin permisos", e);
+            Log.e(TAG, "No hay permisos de ubicación", e);
+        }
+    }
+    
+    private void stopLocationUpdates() {
+        if (fusedLocationClient != null && locationCallback != null) {
+            fusedLocationClient.removeLocationUpdates(locationCallback);
+            Log.d(TAG, "Actualizaciones de ubicación detenidas");
         }
     }
     
@@ -90,17 +124,17 @@ public class LocationService extends Service {
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         
-        Log.d(TAG, String.format("Ubicación: %.6f, %.6f", latitude, longitude));
+        Log.d(TAG, String.format("Enviando ubicación: %.6f, %.6f (Viaje activo)", latitude, longitude));
         
         apiClient.sendLocation(latitude, longitude, new ApiClient.ApiCallback<String>() {
             @Override
             public void onSuccess(String response) {
-                Log.d(TAG, "Enviado exitoso");
+                Log.d(TAG, "Ubicación enviada exitosamente: " + response);
             }
             
             @Override
             public void onError(String error) {
-                Log.e(TAG, "Error: " + error);
+                Log.e(TAG, "Error enviando ubicación: " + error);
             }
         });
     }
@@ -109,9 +143,10 @@ public class LocationService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                 CHANNEL_ID,
-                "DriverMax",
+                "DriverMax - Seguimiento de Viajes",
                 NotificationManager.IMPORTANCE_LOW
             );
+            channel.setDescription("Notificaciones de DriverMax para viajes activos");
             
             NotificationManager manager = getSystemService(NotificationManager.class);
             if (manager != null) {
@@ -122,7 +157,7 @@ public class LocationService extends Service {
     
     private Notification createNotification(String message) {
         return new NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("DriverMax")
+            .setContentTitle("DriverMax - Asistente de Conductores")
             .setContentText(message)
             .setSmallIcon(android.R.drawable.ic_menu_mylocation)
             .setOngoing(true)
@@ -130,13 +165,19 @@ public class LocationService extends Service {
             .build();
     }
     
+    private void updateNotification(String message) {
+        Notification notification = createNotification(message);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        if (manager != null) {
+            manager.notify(NOTIFICATION_ID, notification);
+        }
+    }
+    
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (fusedLocationClient != null && locationCallback != null) {
-            fusedLocationClient.removeLocationUpdates(locationCallback);
-        }
-        Log.d(TAG, "Service destruido");
+        stopLocationUpdates();
+        Log.d(TAG, "DriverMax LocationService destruido");
     }
     
     @Override

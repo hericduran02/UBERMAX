@@ -3,6 +3,8 @@ package com.drivermax.app;
 import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -11,88 +13,96 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
- * DriverMax - Cliente API transparente
- * Solo envía ubicación cuando el conductor está en un viaje activo
- * Toda la comunicación es transparente y ética
+ * Cliente para comunicación con el backend DriverMax
+ * Envía ubicaciones de forma ética y transparente
  */
 public class ApiClient {
     
-    private static final String TAG = "ApiClient";
-    private static final String BASE_URL = "http://4.237.92.83:8080";
+    private static final String TAG = "DriverMax";
+    private static final String BACKEND_URL = "http://4.237.92.83:8080"; // URL del backend
+    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     
-    private final OkHttpClient client;
-    private final String deviceId;
+    private Context context;
+    private OkHttpClient client;
     
     public ApiClient(Context context) {
-        this.client = new OkHttpClient.Builder()
+        this.context = context;
+        // Cliente HTTP simple con timeouts
+        client = new OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build();
-            
-        this.deviceId = Settings.Secure.getString(
-            context.getContentResolver(), 
-            Settings.Secure.ANDROID_ID
-        );
     }
     
     /**
-     * Enviar ubicación al backend durante un viaje activo
-     * SOLO se llama cuando el conductor ha iniciado un viaje
-     * Completamente transparente - el conductor sabe exactamente cuándo se envía
+     * Obtiene un ID único automático del dispositivo
+     * Esto se usa para identificar al conductor sin registro manual
+     */
+    private String getDeviceId() {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+    
+    /**
+     * Envía ubicación al backend cuando hay viaje activo
+     * Solo se llama durante viajes conscientes del usuario
      */
     public void sendLocation(double latitude, double longitude, ApiCallback<String> callback) {
         try {
+            // Crear JSON con ubicación y ID automático del dispositivo
             JSONObject json = new JSONObject();
-            json.put("user_id", deviceId);
+            json.put("user_id", getDeviceId()); // ID único automático
             json.put("latitude", latitude);
             json.put("longitude", longitude);
-            json.put("timestamp", System.currentTimeMillis() / 1000);
+            json.put("timestamp", System.currentTimeMillis());
+            json.put("app", "drivermax_android");
+            json.put("trip_status", "active"); // Indica que está en viaje activo
             
-            RequestBody body = RequestBody.create(
-                json.toString(),
-                MediaType.get("application/json")
-            );
+            Log.d(TAG, String.format("Enviando ubicación de viaje: %.6f, %.6f", latitude, longitude));
             
+            RequestBody body = RequestBody.create(json.toString(), JSON);
             Request request = new Request.Builder()
-                .url(BASE_URL + "/location")
+                .url(BACKEND_URL + "/api/location")
                 .post(body)
                 .build();
                 
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.e(TAG, "Error HTTP", e);
-                    callback.onError(e.getMessage());
+                    String error = "Error de conexión: " + e.getMessage();
+                    Log.e(TAG, error);
+                    callback.onError(error);
                 }
                 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    String responseBody = response.body() != null ? response.body().string() : "";
-                    
                     if (response.isSuccessful()) {
+                        String responseBody = response.body() != null ? response.body().string() : "OK";
+                        Log.d(TAG, "Ubicación enviada exitosamente durante viaje");
                         callback.onSuccess(responseBody);
                     } else {
-                        callback.onError("HTTP " + response.code());
+                        String error = "Error del servidor: " + response.code();
+                        Log.e(TAG, error);
+                        callback.onError(error);
                     }
+                    response.close();
                 }
             });
             
         } catch (Exception e) {
-            Log.e(TAG, "Error JSON", e);
-            callback.onError(e.getMessage());
+            String error = "Error creando solicitud: " + e.getMessage();
+            Log.e(TAG, error);
+            callback.onError(error);
         }
     }
     
     /**
-     * Callback interface para respuestas del API
+     * Callback para respuestas del API
      */
     public interface ApiCallback<T> {
-        void onSuccess(T response);
+        void onSuccess(T result);
         void onError(String error);
     }
 } 

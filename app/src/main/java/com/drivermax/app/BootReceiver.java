@@ -5,9 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import androidx.core.content.ContextCompat;
 
 /**
- * DriverMax - Receptor de inicio automático
+ * Receiver para auto-inicio después de reinicio del dispositivo
  * Solo reactiva el servicio si había un viaje en curso
  * Completamente transparente para el conductor
  */
@@ -20,19 +21,17 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            Log.d(TAG, "Sistema reiniciado - Verificando estado de viaje");
             
             SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             boolean wasInTrip = prefs.getBoolean(IN_TRIP_KEY, false);
             
             if (wasInTrip) {
-                Log.d(TAG, "DriverMax: Reactivando seguimiento de viaje después de reinicio");
-                
+                Log.d(TAG, "Había viaje en curso - Reactivando LocationService");
                 Intent serviceIntent = new Intent(context, LocationService.class);
-                context.startForegroundService(serviceIntent);
-                
-                Log.d(TAG, "DriverMax: Servicio de viaje reactivado transparentemente");
+                ContextCompat.startForegroundService(context, serviceIntent);
             } else {
-                Log.d(TAG, "DriverMax: No había viaje activo - Sin reactivación");
+                Log.d(TAG, "No había viaje en curso - No se reactiva el servicio");
             }
         }
     }
