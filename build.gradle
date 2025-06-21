@@ -21,13 +21,7 @@ plugins {
     id 'com.android.library' version '8.1.2' apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
+// Repositorios configurados en settings.gradle
 
 task clean(type: Delete) {
     delete rootProject.buildDir

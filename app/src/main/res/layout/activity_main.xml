@@ -12,8 +12,9 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="32dp"
-        android:src="@mipmap/ic_launcher"
-        android:contentDescription="UberMax" />
+        android:src="@android:drawable/ic_menu_mylocation"
+        android:contentDescription="UberMax"
+        android:tint="#1976D2" />
 
     <!-- Título -->
     <TextView
