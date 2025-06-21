@@ -1,0 +1,112 @@
+name: UberMax APK - SUPER SIMPLE
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Compilar APK UberMax
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Configurar Gradle
+      run: |
+        echo "Configurando Gradle..."
+        chmod +x gradlew
+        
+        cat > settings.gradle << 'EOF'
+        pluginManagement {
+            repositories {
+                google()
+                mavenCentral()
+                gradlePluginPortal()
+            }
+        }
+        dependencyResolutionManagement {
+            repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+            repositories {
+                google()
+                mavenCentral()
+            }
+        }
+        rootProject.name = "UberMax"
+        include ':app'
+        EOF
+        
+        cat > build.gradle << 'EOF'
+        plugins {
+            id 'com.android.application' version '8.1.2' apply false
+        }
+        EOF
+        
+        echo "Gradle configurado"
+        
+    - name: Compilar APK
+      run: |
+        echo "Compilando APK..."
+        export GRADLE_OPTS="-Xmx6g"
+        
+        ./gradlew assembleDebug --no-daemon --stacktrace
+        
+        echo "APK compilada"
+        
+    - name: Verificar APK
+      run: |
+        if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
+          APK_SIZE=$(stat -c%s "app/build/outputs/apk/debug/app-debug.apk")
+          echo "APK generada: $APK_SIZE bytes"
+          
+          if [ "$APK_SIZE" -gt 2000000 ]; then
+            echo "APK VÁLIDA - Tamaño OK"
+          else
+            echo "APK muy pequeña - $APK_SIZE bytes"
+            exit 1
+          fi
+        else
+          echo "APK no encontrada"
+          find . -name "*.apk" -exec ls -lh {} \;
+          exit 1
+        fi
+        
+    - name: Subir APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: UberMax-APK-${{ github.run_number }}
+        path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 90
+        
+    - name: Resumen
+      run: |
+        echo "=================================="
+        echo "UBERMAX APK GENERADA EXITOSAMENTE"
+        echo "=================================="
+        echo "Fecha: $(date)"
+        echo "Build: ${{ github.run_number }}"
+        echo ""
+        echo "DESCARGA:"
+        echo "1. Ve a Actions > Workflow runs"
+        echo "2. Busca: UberMax-APK-${{ github.run_number }}"
+        echo "3. Descarga y descomprime"
+        echo "4. Instala app-debug.apk en Android"
+        echo ""
+        echo "FUNCIONALIDAD:"
+        echo "- Solo pide permisos GPS"
+        echo "- Se conecta automáticamente al backend"
+        echo "- Funciona cuando zona preferencial está activa"
+        echo "- Inicia automáticamente después de reboot"
+        echo "==================================" 
