@@ -3,159 +3,278 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F8F9FA">
+    android:background="@drawable/background_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp">
 
-        <!-- Header con logo y título -->
+        <!-- Header minimalista -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/button_primary"
-            android:padding="16dp">
+            android:layout_marginBottom="32dp">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@android:drawable/ic_menu_mylocation"
-                android:tint="#FFFFFF"
-                android:layout_marginEnd="12dp" />
+            <!-- Logo negro con M blanca -->
+            <LinearLayout
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/logo_circle_black"
+                android:gravity="center"
+                android:elevation="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textSize="24sp"
+                    android:text="UberMax"
+                    android:textSize="28sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_subtitle"
+                    android:text="Sistema Inteligente"
                     android:textSize="14sp"
-                    android:textColor="#E3F2FD" />
+                    android:textColor="#BBFFFFFF" />
+
+            </LinearLayout>
+
+            <!-- Ícono de perfil -->
+            <LinearLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/card_glass"
+                android:gravity="center"
+                android:elevation="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👤"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Estado actual -->
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/status_offline"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#1976D2"
-            android:gravity="center"
-            android:background="#E3F2FD"
-            android:padding="16dp"
-            android:layout_marginBottom="20dp" />
-
-        <!-- Estadísticas del día -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="📊 Estadísticas de Hoy"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="12dp" />
-
+        <!-- Estado principal en tarjeta glassmorphism -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:padding="16dp"
-            android:layout_marginBottom="20dp"
-            android:elevation="2dp">
+            android:background="@drawable/card_glass"
+            android:padding="24dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="12dp">
 
             <TextView
-                android:id="@+id/trips_count"
+                android:id="@+id/status_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🚗 Viajes completados: 0"
-                android:textSize="16sp"
-                android:textColor="#333333"
-                android:layout_marginBottom="8dp" />
+                android:text="@string/status_offline"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
 
             <TextView
-                android:id="@+id/total_distance"
+                android:id="@+id/bot_instructions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📍 Distancia recorrida: 0 km"
-                android:textSize="16sp"
-                android:textColor="#333333"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:id="@+id/active_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⏱️ Tiempo activo: 0 min"
-                android:textSize="16sp"
-                android:textColor="#333333" />
+                android:text="🤖 Conectando con sistema..."
+                android:textSize="14sp"
+                android:textColor="#CCFFFFFF"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp" />
 
         </LinearLayout>
 
-        <!-- Botón principal -->
+        <!-- Estadísticas en tres tarjetas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <!-- Viajes -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_glass"
+                android:gravity="center"
+                android:layout_marginEnd="8dp"
+                android:elevation="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🚗"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/trips_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Viajes"
+                    android:textSize="12sp"
+                    android:textColor="#BBFFFFFF" />
+
+            </LinearLayout>
+
+            <!-- Distancia -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_glass"
+                android:gravity="center"
+                android:layout_marginHorizontal="8dp"
+                android:elevation="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/total_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 km"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distancia"
+                    android:textSize="12sp"
+                    android:textColor="#BBFFFFFF" />
+
+            </LinearLayout>
+
+            <!-- Tiempo -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_glass"
+                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:elevation="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏱️"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/active_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 min"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiempo"
+                    android:textSize="12sp"
+                    android:textColor="#BBFFFFFF" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Botón principal glassmorphism -->
         <Button
             android:id="@+id/main_action_button"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="56dp"
             android:text="@string/grant_permissions"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:background="@drawable/button_primary"
-            android:layout_marginBottom="20dp"
-            android:elevation="4dp" />
+            android:background="@drawable/button_glass"
+            android:layout_marginBottom="24dp"
+            android:elevation="12dp"
+            android:textAllCaps="false" />
 
-        <!-- Información de privacidad -->
-        <TextView
+        <!-- Información del bot en tarjeta sutil -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/privacy_note"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:gravity="center"
-            android:background="#FFF3E0"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:background="@drawable/card_glass"
+            android:padding="20dp"
+            android:elevation="4dp">
 
-        <!-- Funcionalidades -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="✨ ¿Qué hace DriverMax?"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="8dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🤖 Sincronizado con Telegram"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_marginBottom="12dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="• Cuenta tus viajes automáticamente\n• Calcula distancias recorridas\n• Registra tiempo de trabajo\n• Te ayuda a optimizar rutas\n• Solo funciona cuando TÚ inicias un viaje\n• Todos tus datos son privados"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:lineSpacingExtra="2dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Usa /tomar_viaje para activar GPS\n• Usa /terminar_viaje para desactivar\n• Control total desde el bot"
+                android:textSize="14sp"
+                android:textColor="#BBFFFFFF"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

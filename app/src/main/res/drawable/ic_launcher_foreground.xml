@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Solo la letra M blanca centrada -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,25 L28,83 L38,83 L38,45 L50,70 L58,70 L70,45 L70,83 L80,83 L80,25 L68,25 L54,60 L40,25 Z" />
+        
+</vector> 

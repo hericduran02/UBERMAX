@@ -1,71 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Material Design 3 Primary Colors -->
-    <color name="md_theme_light_primary">#1976D2</color>
-    <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_primaryContainer">#BBDEFB</color>
-    <color name="md_theme_light_onPrimaryContainer">#0D47A1</color>
+    <!-- Colores futuristas para UberMax -->
     
-    <!-- Material Design 3 Secondary Colors -->
-    <color name="md_theme_light_secondary">#1565C0</color>
-    <color name="md_theme_light_onSecondary">#FFFFFF</color>
-    <color name="md_theme_light_secondaryContainer">#90CAF9</color>
-    <color name="md_theme_light_onSecondaryContainer">#0A3D66</color>
+    <!-- Fondo principal -->
+    <color name="background_dark">#0A0A0A</color>
+    <color name="background_card">#1A1A1A</color>
+    <color name="background_surface">#141414</color>
     
-    <!-- Material Design 3 Surface Colors -->
-    <color name="md_theme_light_surface">#FEFBFF</color>
-    <color name="md_theme_light_onSurface">#1C1B1F</color>
-    <color name="md_theme_light_surfaceVariant">#E7E0EC</color>
-    <color name="md_theme_light_onSurfaceVariant">#49454F</color>
+    <!-- Acentos futuristas -->
+    <color name="neon_blue">#00D4FF</color>
+    <color name="neon_purple">#8B5CF6</color>
+    <color name="neon_green">#10B981</color>
+    <color name="neon_orange">#FF6B35</color>
     
-    <!-- Material Design 3 Background Colors -->
-    <color name="md_theme_light_background">#FEFBFF</color>
-    <color name="md_theme_light_onBackground">#1C1B1F</color>
+    <!-- Gradientes -->
+    <color name="gradient_start">#667eea</color>
+    <color name="gradient_end">#764ba2</color>
     
-    <!-- Material Design 3 Error Colors -->
-    <color name="md_theme_light_error">#BA1A1A</color>
-    <color name="md_theme_light_onError">#FFFFFF</color>
-    <color name="md_theme_light_errorContainer">#FFDAD6</color>
-    <color name="md_theme_light_onErrorContainer">#410002</color>
+    <!-- Textos -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3B3B3</color>
+    <color name="text_muted">#666666</color>
     
-    <!-- Dark Theme -->
-    <color name="md_theme_dark_primary">#90CAF9</color>
-    <color name="md_theme_dark_onPrimary">#0D47A1</color>
-    <color name="md_theme_dark_primaryContainer">#1565C0</color>
-    <color name="md_theme_dark_onPrimaryContainer">#BBDEFB</color>
+    <!-- Estados -->
+    <color name="status_active">#10B981</color>
+    <color name="status_inactive">#6B7280</color>
+    <color name="status_warning">#F59E0B</color>
+    <color name="status_error">#EF4444</color>
     
-    <color name="md_theme_dark_secondary">#BBDEFB</color>
-    <color name="md_theme_dark_onSecondary">#0A3D66</color>
-    <color name="md_theme_dark_secondaryContainer">#1565C0</color>
-    <color name="md_theme_dark_onSecondaryContainer">#90CAF9</color>
-    
-    <color name="md_theme_dark_surface">#1C1B1F</color>
-    <color name="md_theme_dark_onSurface">#E6E1E5</color>
-    <color name="md_theme_dark_surfaceVariant">#49454F</color>
-    <color name="md_theme_dark_onSurfaceVariant">#CAC4D0</color>
-    
-    <color name="md_theme_dark_background">#1C1B1F</color>
-    <color name="md_theme_dark_onBackground">#E6E1E5</color>
-    
-    <color name="md_theme_dark_error">#FFB4AB</color>
-    <color name="md_theme_dark_onError">#690005</color>
-    <color name="md_theme_dark_errorContainer">#93000A</color>
-    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
-    
-    <!-- UberMax Custom Colors -->
+    <!-- UberMax Brand Colors -->
     <color name="success">#4CAF50</color>
     <color name="warning">#FF9800</color>
     <color name="error">#F44336</color>
     <color name="info">#2196F3</color>
     
-    <!-- Tracking Status Colors -->
-    <color name="tracking_active">#4CAF50</color>
-    <color name="tracking_inactive">#757575</color>
-    <color name="tracking_warning">#FF9800</color>
+    <!-- Material Design Theme Colors -->
+    <color name="md_theme_light_primary">#00D4FF</color>
+    <color name="md_theme_light_onPrimary">#000000</color>
+    <color name="md_theme_light_primaryContainer">#1A1A1A</color>
+    <color name="md_theme_light_onPrimaryContainer">#FFFFFF</color>
+    <color name="md_theme_light_secondary">#8B5CF6</color>
+    <color name="md_theme_light_onSecondary">#000000</color>
+    <color name="md_theme_light_secondaryContainer">#141414</color>
+    <color name="md_theme_light_onSecondaryContainer">#FFFFFF</color>
+    <color name="md_theme_light_background">#0A0A0A</color>
+    <color name="md_theme_light_onBackground">#FFFFFF</color>
+    <color name="md_theme_light_surface">#1A1A1A</color>
+    <color name="md_theme_light_onSurface">#FFFFFF</color>
+    <color name="md_theme_light_surfaceVariant">#141414</color>
+    <color name="md_theme_light_onSurfaceVariant">#B3B3B3</color>
+    <color name="md_theme_light_error">#EF4444</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_errorContainer">#1A1A1A</color>
+    <color name="md_theme_light_onErrorContainer">#EF4444</color>
     
-    <!-- Brand Colors -->
-    <color name="ubermax_primary">#1976D2</color>
-    <color name="ubermax_secondary">#1565C0</color>
-    <color name="ubermax_accent">#03DAC6</color>
-    
+    <!-- Dark theme -->
+    <color name="md_theme_dark_primary">#00D4FF</color>
+    <color name="md_theme_dark_onPrimary">#000000</color>
+    <color name="md_theme_dark_primaryContainer">#1A1A1A</color>
+    <color name="md_theme_dark_onPrimaryContainer">#FFFFFF</color>
+    <color name="md_theme_dark_secondary">#8B5CF6</color>
+    <color name="md_theme_dark_onSecondary">#000000</color>
+    <color name="md_theme_dark_secondaryContainer">#141414</color>
+    <color name="md_theme_dark_onSecondaryContainer">#FFFFFF</color>
+    <color name="md_theme_dark_background">#0A0A0A</color>
+    <color name="md_theme_dark_onBackground">#FFFFFF</color>
+    <color name="md_theme_dark_surface">#1A1A1A</color>
+    <color name="md_theme_dark_onSurface">#FFFFFF</color>
+    <color name="md_theme_dark_surfaceVariant">#141414</color>
+    <color name="md_theme_dark_onSurfaceVariant">#B3B3B3</color>
+    <color name="md_theme_dark_error">#EF4444</color>
+    <color name="md_theme_dark_onError">#FFFFFF</color>
+    <color name="md_theme_dark_errorContainer">#1A1A1A</color>
+    <color name="md_theme_dark_onErrorContainer">#EF4444</color>
 </resources> 

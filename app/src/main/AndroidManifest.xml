@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.drivermax.app">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Solo permisos GPS necesarios -->
+    <!-- Permisos necesarios para UberMax -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
 
     <application
         android:allowBackup="true"
-        android:icon="@android:drawable/ic_menu_mylocation"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UberMax"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
 
-        <!-- Actividad principal súper simple -->
+        <!-- Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -26,18 +35,23 @@
             </intent-filter>
         </activity>
 
-        <!-- Servicio de tracking GPS -->
+        <!-- Servicio de ubicación -->
         <service
             android:name=".LocationService"
-            android:exported="false" />
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location" />
 
-        <!-- Auto inicio después de reboot -->
+        <!-- Receptor de arranque del sistema -->
         <receiver
             android:name=".BootReceiver"
             android:enabled="true"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
 

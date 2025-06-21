@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DriverMax</string>
-    <string name="app_subtitle">Herramienta ética para conductores profesionales</string>
-    <string name="welcome_title">¡Bienvenido a DriverMax!</string>
+    <string name="app_name">UberMax</string>
+    <string name="app_subtitle">Asistente de Conductores</string>
+    <string name="welcome_title">¡Bienvenido a UberMax!</string>
     <string name="welcome_description">Tu herramienta personal para gestionar viajes y mejorar tus ganancias como conductor profesional.</string>
     <string name="permissions_title">Permisos de Ubicación</string>
-    <string name="permissions_description">DriverMax necesita acceso a tu ubicación SOLO cuando estés en un viaje activo para:</string>
+    <string name="permissions_description">UberMax necesita acceso a tu ubicación SOLO cuando estés en un viaje activo para:</string>
     <string name="permissions_benefits">• Confirmar inicio y fin de viajes\n• Calcular distancia recorrida\n• Generar estadísticas de tus rutas\n• Ayudarte a optimizar tus ganancias</string>
-    <string name="privacy_note">🔒 Tu privacidad es importante: DriverMax SOLO envía ubicación cuando inicias conscientemente un viaje. Tienes control total sobre cuándo activar o desactivar el seguimiento.</string>
+    <string name="privacy_note">🤖 IMPORTANTE: UberMax funciona sincronizado con el bot de Telegram. Los viajes solo se activan desde el bot usando /tomar_viaje y se terminan con /terminar_viaje.</string>
     <string name="grant_permissions">Permitir Ubicación</string>
-    <string name="status_ready">✅ DriverMax Listo</string>
+    <string name="status_ready">✅ UberMax Listo</string>
     <string name="status_active">🚗 En Viaje Activo</string>
-    <string name="status_offline">⏸️ Fuera de servicio</string>
+    <string name="status_offline">⚠️ Permisos Pendientes</string>
     <string name="status_permissions_needed">⚠️ Permisos Pendientes</string>
     <string name="trips_today">Viajes de Hoy:</string>
     <string name="total_distance">Distancia Total:</string>
     <string name="active_time">Tiempo Activo:</string>
     <string name="start_trip">Iniciar Viaje</string>
     <string name="end_trip">Terminar Viaje</string>
-    <string name="trip_started">✅ ¡Viaje iniciado! DriverMax está registrando tu ruta.</string>
+    <string name="trip_started">✅ ¡Viaje iniciado! UberMax está registrando tu ruta.</string>
     <string name="trip_ended">✅ Viaje terminado. Estadísticas actualizadas.</string>
     <string name="notification_service_active">🚗 En viaje - Registrando ruta</string>
     <string name="notification_service_paused">⏸️ Fuera de servicio</string>
-    <string name="permissions_granted">✅ Permisos concedidos. ¡DriverMax está listo!</string>
-    <string name="permissions_needed">DriverMax necesita permisos de ubicación para funcionar.</string>
+    <string name="permissions_granted">✅ Permisos concedidos. ¡UberMax está listo!</string>
+    <string name="permissions_needed">UberMax necesita permisos de ubicación para funcionar.</string>
 </resources> 
