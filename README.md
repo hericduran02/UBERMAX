@@ -1,109 +1,148 @@
-# 🚀 UberMax Android APK - SIN REGISTRO
+# 🚗 DriverMax - Asistente Ético para Conductores Profesionales
 
-## 📱 **App 100% Automática para Conductores**
+## 📱 **¿Qué es DriverMax?**
 
-APK súper simple que:
-- ✅ **Solo pide permisos GPS** (sin configuración)
-- ✅ **Funciona inmediatamente** después de instalación
-- ✅ **Envía ubicación automáticamente** usando ID del dispositivo
-- ✅ **Sin registro, sin PIN, sin configuración** 
-- ✅ **Se reinicia automáticamente** después de reboot
+DriverMax es una **herramienta completamente transparente** diseñada para ayudar a conductores profesionales en República Dominicana a **gestionar sus viajes de forma ética** y optimizar sus ganancias.
 
-## 🎯 **Compilar APK (GitHub Actions)**
+### ✅ **Funcionalidad 100% Transparente:**
 
-### 1. Subir Proyecto
-```bash
-# Sube TODA esta carpeta como raíz del repositorio
-git add .
-git commit -m "UberMax APK listo para compilar"
-git push origin main
+- **🔒 Solo funciona cuando TÚ inicias un viaje** - No hay tracking oculto
+- **📊 Estadísticas personales** - Cuenta tus viajes, distancia y tiempo activo
+- **🛡️ Privacidad total** - Tus datos son privados y solo se envían durante viajes activos
+- **⚡ Control completo** - Puedes iniciar/terminar el seguimiento cuando quieras
+- **📱 Interfaz clara** - Siempre sabes exactamente qué está haciendo la app
+
+---
+
+## 🎯 **¿Cómo Funciona?**
+
+### **1. 🔐 Permisos Transparentes**
+La app te explica exactamente para qué necesita cada permiso:
+- **📍 Ubicación:** Solo para confirmar inicio/fin de viajes y calcular distancias
+- **🔔 Notificaciones:** Para informarte del estado del viaje
+
+### **2. 🚗 Gestión de Viajes**
+- **Iniciar Viaje:** Presiona el botón cuando comiences un viaje
+- **En Viaje:** La app registra tu ruta y calcula estadísticas
+- **Terminar Viaje:** Presiona terminar cuando acabes
+
+### **3. 📊 Estadísticas Útiles**
+- Número de viajes completados hoy
+- Distancia total recorrida
+- Tiempo activo trabajando
+- Historial de rutas (guardado localmente)
+
+---
+
+## 🛡️ **Garantías de Privacidad**
+
+### **✅ LO QUE SÍ HACE:**
+- ✅ Cuenta tus viajes automáticamente
+- ✅ Calcula distancias y tiempo de trabajo
+- ✅ Ayuda a optimizar tus rutas
+- ✅ Guarda estadísticas en tu teléfono
+- ✅ Envía ubicación SOLO durante viajes activos
+
+### **❌ LO QUE NO HACE:**
+- ❌ No rastrea tu ubicación cuando no estás trabajando
+- ❌ No vende tus datos personales
+- ❌ No funciona sin tu conocimiento
+- ❌ No se conecta a redes sociales
+- ❌ No accede a tus contactos o mensajes
+
+---
+
+## 🚀 **Instalación y Uso**
+
+### **📥 Descarga e Instala**
+1. Descarga la APK desde GitHub Actions
+2. Permite "Instalar desde fuentes desconocidas"
+3. Instala DriverMax en tu Android
+
+### **⚙️ Configuración Inicial**
+1. Abre DriverMax
+2. Lee la información de transparencia
+3. Concede permisos de ubicación (solo para viajes)
+4. ¡Listo para usar!
+
+### **🎮 Uso Diario**
+```
+📱 Antes de un viaje → Presiona "Iniciar Viaje"
+🚗 Durante el viaje → DriverMax registra tu ruta
+🏁 Al terminar → Presiona "Terminar Viaje"
+📊 Revisa tus estadísticas del día
 ```
 
-### 2. Compilación Automática
-- GitHub Actions se ejecuta automáticamente
-- En 30-45 minutos → APK lista
-- Descarga desde `Actions` > `Artifacts`
+---
 
-## ⚙️ **Configurar Backend URL (Opcional)**
+## 🔧 **Para Desarrolladores**
 
-**Solo si tienes tu propio servidor**, edita `app/src/main/java/com/ubermax/app/ApiClient.java`:
+### **🏗️ Compilar APK**
+
+```bash
+# Clonar repositorio
+git clone https://github.com/tu-usuario/DriverMax.git
+
+# Compilar localmente
+./gradlew assembleDebug
+
+# O usar GitHub Actions automático
+# La APK se genera automáticamente en cada push
+```
+
+### **⚙️ Configurar Backend (Opcional)**
+
+Si tienes tu propio servidor, edita:
 ```java
+// ApiClient.java
 private static final String BACKEND_URL = "http://tu-servidor.com:8080";
 ```
 
-**Por defecto funciona con URL de ejemplo** para testing.
+---
 
-## 📲 **Instalación**
+## 📋 **Requisitos del Sistema**
 
-1. Descarga `app-debug.apk`
-2. Instala en Android
-3. Acepta permisos GPS
-4. ¡Listo! App funciona automáticamente
+- **📱 Android 5.0+** (API 21+)
+- **📍 GPS disponible**
+- **📶 Conexión a internet** (solo para enviar estadísticas)
+- **💾 50MB espacio libre**
 
-## 🔄 **Flujo de Trabajo Automático**
+---
 
-```
-Usuario instala APK
-    ↓
-App pide solo permisos GPS
-    ↓
-App obtiene Android ID automáticamente
-    ↓
-Servicio envía ubicación + Android ID cada 30s
-    ↓
-Backend crea usuario automático si no existe
-    ↓
-Tracking 100% automático y transparente
-```
+## 🤝 **Compromiso Ético**
 
-## 📁 **Estructura del Proyecto**
+DriverMax está diseñado con **transparencia total** para conductores profesionales:
 
-```
-├── .github/workflows/build.yml    # Compilación automática
-├── app/
-│   ├── src/main/
-│   │   ├── java/com/ubermax/app/
-│   │   │   ├── MainActivity.java       # Solo pide permisos
-│   │   │   ├── LocationService.java    # GPS background
-│   │   │   ├── ApiClient.java          # HTTP al backend
-│   │   │   └── BootReceiver.java       # Auto-inicio
-│   │   ├── res/                        # UI minimalista
-│   │   └── AndroidManifest.xml         # Permisos GPS
-│   └── build.gradle                    # Dependencias simples
-├── build.gradle                        # Configuración Gradle
-├── settings.gradle                     # Repositorios corregidos
-├── gradlew                            # Gradle wrapper
-└── gradlew.bat                        # Gradle wrapper Windows
-```
+### **🌟 Nuestros Principios:**
+1. **Transparencia:** Siempre sabes qué hace la app
+2. **Consentimiento:** Solo funciona cuando tú lo activas
+3. **Privacidad:** Tus datos son tuyos
+4. **Utilidad:** Te ayuda a mejorar tus ganancias
+5. **Respeto:** No interrumpe tu trabajo
 
-## 🛡️ **Características**
+### **📞 Soporte y Contacto**
+- 🐛 **Reportar bugs:** GitHub Issues
+- 💡 **Sugerencias:** GitHub Discussions
+- 📧 **Contacto:** [Tu email de soporte]
 
-- **Sin registro** - Solo instalar y usar
-- **Transparente** - Solo trackea con zona activa
-- **Legal** - Usuario sabe exactamente qué hace
-- **Optimizado** - Bajo consumo de batería
-- **Robusto** - Sobrevive reinicios del teléfono
+---
 
-## 🎯 **Integración Sistema UberMax**
+## 📄 **Licencia**
 
-### **🔥 Modo Automático (Recomendado):**
-1. **APK Android** → Envía ubicación automáticamente con Android ID
-2. **Backend Go** → Crea usuario automático y guarda ubicación
-3. **Bot Telegram** → Usa TODAS las ubicaciones para mapa de calor
+DriverMax es software libre diseñado para ayudar a conductores profesionales en República Dominicana.
 
-### **⚡ Modo Avanzado (Opcional):**
-1. **Conductor se registra** en Bot Telegram
-2. **Bot asigna PIN** al conductor
-3. **Conductor usa PIN** en app avanzada (si la quiere)
-4. **Control granular** de zonas preferenciales
+---
 
-## 🚀 **¡LISTO PARA USAR!**
+## 🎉 **¡Maneja Inteligente, Gana Más!**
 
-Esta APK está **100% funcional** y lista para:
-- ✅ **Compilar sin errores** garantizado
-- ✅ **Funcionar inmediatamente** sin configuración
-- ✅ **Trabajar independientemente** (no necesita bot)
-- ✅ **Integrarse opcionalmente** con sistema completo
-- ✅ **Usar en producción** en República Dominicana
+**DriverMax - Tu compañero ético en cada viaje** 🚗✨
 
-**APK 100% automática - Sin barreras de entrada** 🎯 
+---
+
+### 📊 **Estado del Proyecto:**
+- ✅ **Versión 1.0** - Funcionalidad básica completa
+- ✅ **Interfaz amigable** - Diseño transparente
+- ✅ **Compilación garantizada** - APK lista para usar
+- ✅ **100% ético** - Sin rastreo oculto
+
+**¡Descarga DriverMax hoy y optimiza tu trabajo como conductor profesional!** 🏆 

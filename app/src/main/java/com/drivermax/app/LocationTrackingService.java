@@ -1,4 +1,4 @@
-package com.ubermax.app;
+package com.drivermax.app;
 
 import android.Manifest;
 import android.app.Notification;

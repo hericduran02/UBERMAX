@@ -1,75 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:background="#FFFFFF">
+    android:fillViewport="true"
+    android:background="#F8F9FA">
 
-    <!-- Logo o icono -->
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="32dp"
-        android:src="@android:drawable/ic_menu_mylocation"
-        android:contentDescription="UberMax"
-        android:tint="#1976D2" />
-
-    <!-- Título -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="UberMax"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#1976D2"
-        android:layout_marginBottom="8dp" />
-
-    <!-- Subtítulo -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Conductor Inteligente"
-        android:textSize="16sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="48dp" />
-
-    <!-- Estado de la app -->
-    <TextView
-        android:id="@+id/status_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Verificando permisos..."
-        android:textSize="16sp"
-        android:textColor="#333333"
-        android:gravity="center"
-        android:background="#F5F5F5"
-        android:padding="20dp"
-        android:layout_marginBottom="32dp"
-        android:lineSpacingExtra="4dp" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <!-- Botón principal -->
-    <Button
-        android:id="@+id/permission_button"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Configurar Permisos"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/button_primary"
-        android:layout_marginBottom="24dp"
-        android:elevation="2dp" />
+        <!-- Header con logo y título -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/button_primary"
+            android:padding="16dp">
 
-    <!-- Información adicional -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="• Solo funciona cuando actives zona preferencial en el bot\n• Envía ubicación al backend automáticamente\n• Inicia automáticamente después de reiniciar"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:gravity="center"
-        android:lineSpacingExtra="2dp" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_mylocation"
+                android:tint="#FFFFFF"
+                android:layout_marginEnd="12dp" />
 
-</LinearLayout> 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_subtitle"
+                    android:textSize="14sp"
+                    android:textColor="#E3F2FD" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Estado actual -->
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/status_offline"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1976D2"
+            android:gravity="center"
+            android:background="#E3F2FD"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Estadísticas del día -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📊 Estadísticas de Hoy"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="20dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/trips_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🚗 Viajes completados: 0"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/total_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📍 Distancia recorrida: 0 km"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/active_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⏱️ Tiempo activo: 0 min"
+                android:textSize="16sp"
+                android:textColor="#333333" />
+
+        </LinearLayout>
+
+        <!-- Botón principal -->
+        <Button
+            android:id="@+id/main_action_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/grant_permissions"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_primary"
+            android:layout_marginBottom="20dp"
+            android:elevation="4dp" />
+
+        <!-- Información de privacidad -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_note"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:background="#FFF3E0"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Funcionalidades -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✨ ¿Qué hace DriverMax?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• Cuenta tus viajes automáticamente\n• Calcula distancias recorridas\n• Registra tiempo de trabajo\n• Te ayuda a optimizar rutas\n• Solo funciona cuando TÚ inicias un viaje\n• Todos tus datos son privados"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:lineSpacingExtra="2dp" />
+
+    </LinearLayout>
+
+</ScrollView> 

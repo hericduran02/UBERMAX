@@ -1,4 +1,4 @@
-name: UberMax APK - ULTRA SIMPLE
+name: DriverMax APK - Herramienta Ética para Conductores
 
 on:
   push:
@@ -26,12 +26,12 @@ jobs:
     - name: Dar permisos a gradlew
       run: chmod +x gradlew
         
-    - name: Compilar APK
+    - name: Compilar APK DriverMax
       run: |
         ./gradlew assembleDebug --stacktrace
         
-    - name: Subir APK
+    - name: Subir APK DriverMax
       uses: actions/upload-artifact@v3
       with:
-        name: UberMax-APK
+        name: DriverMax-APK
         path: app/build/outputs/apk/debug/app-debug.apk 
